@@ -1,0 +1,13 @@
+streamlit
+opencv-python
+Pillow
+numpy
+torch
+torchvision
+torch-geometric
+matplotlib
+torch-scatter
+torch-sparse
+class_resolver
+numba
+urllib3
