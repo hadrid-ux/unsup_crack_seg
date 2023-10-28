@@ -2,11 +2,12 @@ streamlit
 opencv-python
 Pillow
 numpy
-torch
+torch==1.8.0
 torch-scatter
 torch-sparse
+torch_geometric==2.0.4
+class_resolver
 torchvision
-torch-geometric
 matplotlib
 class_resolver
 numba
