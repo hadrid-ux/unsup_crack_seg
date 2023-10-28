@@ -3,11 +3,11 @@ opencv-python
 Pillow
 numpy
 torch
+torch-scatter
+torch-sparse
 torchvision
 torch-geometric
 matplotlib
-torch-scatter
-torch-sparse
 class_resolver
 numba
 urllib3
