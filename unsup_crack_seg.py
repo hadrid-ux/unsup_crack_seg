@@ -7,7 +7,6 @@ import torchvision
 from torchvision import transforms
 import matplotlib.pyplot as plt
 from mat_extract import descriptor_mat
-import torch_geometric
 from torch_geometric.data import Data
 from extractor import ViTExtractor
 from gnn_pool import GNNpool
@@ -47,11 +46,13 @@ def segment_image(uploaded_image):
     image_tensor = prep(uploaded_image)[None, ...]
     image_np = np.array(uploaded_image)
     extractor = ViTExtractor('dino_vits8', stride, model_dir=pretrained_weights, device=device)
+    feats_dim = 384
+    model = GNNpool(feats_dim, 64, 32, K, device).to(device)
+    torch.save(model.state_dict(), 'model.pt')
+    model.train()
     W, F, D = descriptor_mat(image_tensor, extractor, layer, facet, bin=log_bin, device=device)
     node_feats, edge_index, edge_weight = util.load_data(W, F)
     data = Data(node_feats, edge_index, edge_weight).to(device)
-    feats_dim = 384
-    model = GNNpool(feats_dim, 64, 32, K, device).to(device)
     model.load_state_dict(torch.load('./model.pt', map_location=torch.device(device)))
     opt = optim.AdamW(model.parameters(), lr=0.001)
     for _ in range(epoch):
